@@ -1,7 +1,7 @@
 #![cfg(test)]
 
 use crate::{nft, LoanManager, LoanManagerClient};
-use soroban_sdk::{testutils::Address as _, Address, Env, IntoVal};
+use soroban_sdk::{testutils::Address as _, Address, Env};
 
 fn setup_test<'a>(env: &Env) -> (LoanManagerClient<'a>, nft::Client<'a>, Address) {
     // 1. Deploy the NFT score mock contract
