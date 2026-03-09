@@ -1,4 +1,4 @@
-import nextJest from "next/jest";
+import nextJest from 'next/jest.js'
 
 const createJestConfig = nextJest({
   dir: "./",
@@ -13,3 +13,13 @@ const customJestConfig = {
 };
 
 module.exports = createJestConfig(customJestConfig);
+  testMatch: [
+    '**/__tests__/**/*.(ts|tsx|js)',
+    '**/*.(test|spec).(ts|tsx|js)',
+  ],
+  testPathIgnorePatterns: [
+    '<rootDir>/e2e/',
+  ],
+}
+
+export default createJestConfig(customJestConfig)
