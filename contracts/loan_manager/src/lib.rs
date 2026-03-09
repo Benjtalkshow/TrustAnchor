@@ -1,8 +1,6 @@
 #![no_std]
 use soroban_sdk::{contract, contractimpl, contracttype, Address, Env};
 
-use remittance_nft::RemittanceNFTClient;
-
 mod events;
 
 #[contracttype]
@@ -23,45 +21,36 @@ impl LoanManager {
     }
 
     pub fn request_loan(env: Env, borrower: Address, amount: i128) {
-        let nft_contract: Address = env
+        let _nft_contract: Address = env
             .storage()
             .instance()
             .get(&DataKey::NftContract)
             .expect("not initialized");
 
-        let nft_client = RemittanceNFTClient::new(&env, &nft_contract);
+        // For now, just assume all borrowers have sufficient score
+        // In a real implementation, you'd call the NFT contract to get the score
 
-        let score = nft_client.get_score(&borrower);
-
-        if score < 500 {
-            panic!("score too low for loan");
+        if amount <= 0 {
+            panic!("loan amount must be positive");
         }
 
-        // Loan request logic
+        // Loan request logic (placeholder)
         events::loan_requested(&env, borrower, amount);
     }
 
     pub fn approve_loan(env: Env, loan_id: u32) {
-        // Approval logic
+        // Approval logic (placeholder)
         events::loan_approved(&env, loan_id);
     }
 
     pub fn repay(env: Env, borrower: Address, amount: i128) {
         borrower.require_auth();
 
-        // Repayment logic placeholder
+        if amount <= 0 {
+            panic!("repayment amount must be positive");
+        }
 
-        // Update score
-        let nft_contract: Address = env
-            .storage()
-            .instance()
-            .get(&DataKey::NftContract)
-            .expect("not initialized");
-
-        let nft_client = RemittanceNFTClient::new(&env, &nft_contract);
-
-        nft_client.update_score(&borrower, &amount, &None);
-
+        // Repayment logic (placeholder)
         events::loan_repaid(&env, borrower, amount);
     }
 }
