@@ -1,4 +1,5 @@
 import Image from "next/image";
+import ActiveLoanCard from "./components/Activeloancard";
 
 export default function Home() {
   return (
